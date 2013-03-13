@@ -1,0 +1,155 @@
+/* ============================== */
+/* ! Layout for desktop version   */
+/* ============================== */
+body {
+	@import url(http://fonts.googleapis.com/css?family=Vollkorn:700);
+  font: 16px/26px 'Vollkorn', serif;
+  line-height: 2;
+  padding: 0;
+  margin: 0;
+  color: #222;
+}
+
+.masthead,.gamehead{
+  text-align: center;
+  padding:70px 0;
+  margin-bottom:20px;
+  background:url('/assets/images/dark_wall.png');
+  color:#fff;
+}
+
+.masthead img{
+	max-width:150px;
+}
+
+.masthead hr{
+	width: 134px;
+  border: none;
+  border-bottom: 2px dotted #000;
+}
+
+.masthead h1{
+  font-size: 280px;
+  line-height: 200px;
+  margin-top: 0px;
+  font-weight: 100;
+  color:#eee;
+  z-index:-100;
+}
+
+.call_to_action{
+	text-align:center;
+	color:#fff;
+	font-size: 40px;
+	padding:10px 0;
+	margin-bottom:20px;
+}
+
+.call_to_action div{
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.call_to_action .guy{
+	background-color:#1d26a9;
+}
+
+.call_to_action .guy:hover, .call_to_action .guy:active{
+	background-color:#1d2681;
+}
+
+.call_to_action .girl{
+	background-color:#e20b40;
+}
+
+.call_to_action .girl:hover, .call_to_action .girl:active{
+	background-color:#a1082e;
+}
+
+.call_to_action a, .call_to_action a:visited, .call_to_action a:active{
+	color:#fff;
+	text-decoration:none;
+}
+
+.about{
+	padding-bottom:20px;
+}
+
+.gamehead{
+padding:0;
+}
+
+.image_container{
+	margin-top:30px;
+}
+
+.image_container .image1{
+	text-align:right;
+}
+
+.footer{
+	margin-top:100px;
+	border-top:1px solid #ddd;
+	text-align:center;
+}
+
+.footer a{
+	margin:0 20px 0 0;
+}
+
+a,a:visited,a:active {
+	color:#003bee;
+	text-decoration:none;
+}
+
+.a:hover{
+	color:#114cf1;
+}
+
+/* ============================= */
+/* ! Layout for mobile version   */
+/* ============================= */
+
+@media handheld, only screen and (max-width: 767px) {
+
+	body {
+		
+	}
+	
+	.controls{
+		display:none;
+	}
+	
+	.masthead h1{
+  font-size: 70px;
+  line-height: 10px;
+  margin-bottom: 40px;
+  margin-top: 30px;
+  font-weight: 100;
+	}
+	
+	.call_to_action div{
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	}
+
+	.image_container .image1{
+	text-align:left;
+	}
+}
+
+
+/* ========================================== */
+/* ! Provide higher res assets for iPhone 4   */
+/* ========================================== */
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) { 
+
+/*	.logo {
+		background: url(logo2x.jpg) no-repeat;
+		background-size: 212px 303px;
+	}*/
+
+}
