@@ -73,12 +73,12 @@
 		%for k in top:
 			%i +=1
 			%if((i+1)%6 == 0):
-				<div class="twocol last"><img src="{{k[0]}}"/>{{k[1]}}</div>
+				<div class="twocol last"><img src="{{k[0]}}"/><br/>{{k[1]}}</div>
 				</div>
 				<div class="row">
 				
 			%else:
-				<div class="twocol"><img src="{{k[0]}}"/>{{k[1]}}</div>
+				<div class="twocol"><img src="{{k[0]}}"/><br/>{{k[1]}}</div>
 			%end
 		%end
 	</div>

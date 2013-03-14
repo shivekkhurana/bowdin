@@ -40,17 +40,29 @@
 		<div class="twelvecol">
 			<h4>What is bowd.in ?</h4>
 			It is a collection of famous people on facebook, and a system to rate them.
-			
+		</div>
+	</div>
+	<div class="row">
+		<div class="twelvecol">
 			<h4>Where do the images come from ?</h4>
 			All images come from facebook's open graph api.	
-			
+		</div>
+	</div>
+	<div class="row">
+		<div class="twelvecol">			
 			<h4>How do I list myself ?</h4>
 			Practically, if you are on facebook, you are listed. You may not show up because the computer randomly chooses from thousands of people. However you can ensure that you are listed by <a href="/contact">contacting us</a>.
-			
+		</div>
+	</div>
+	<div class="row">
+		<div class="twelvecol">			
 			<h4>How do I unlist myself/my aquaintance ?</h4>
 			You can unlist yourself by supplying us with you facebook profile url using the <a href="/contact">contact</a> page.
-			
-			<h4>We as a company are not related to facebook.</h4>
+		</div>
+	</div>
+	<div class="row">
+		<div class="twelvecol">			
+			<h4>We as a company are not related to facebook. Bowd.in is created by Shivek Khurana.</h4>
 		</div>
 	</div>
 </div>

@@ -28,11 +28,23 @@
 <script type="text/javascript">
 	$(function(){
 		//document ready
+		
 		function load_images()
 		{
 			$.getJSON("/send/{{gender}}", function(data){
-				$('.image_container .image1 img').attr('src', 'http://graph.facebook.com/'+data[0]+'/picture?type=large');
-				$('.image_container .image2 img').attr('src', 'http://graph.facebook.com/'+data[2]+'/picture?type=large');
+				var images = ['http://graph.facebook.com/'+data[0]+'/picture?type=large', 'http://graph.facebook.com/'+data[2]+'/picture?type=large'];
+				
+				
+				//put up image loaders
+				$('.image_container .image1 img').attr('src', '/assets/images/ajax-loader.gif');
+				$('.image_container .image2 img').attr('src', '/assets/images/ajax-loader.gif');
+				
+				$(images).each(function(){
+					(new Image()).src = this;
+				});
+				    		
+				$('.image_container .image1 img').attr('src', images[0]);
+				$('.image_container .image2 img').attr('src', images[1]);
 				
 				$('.image_container .image1 a').attr('href','/game/'+data[0]+'/wins/'+data[2]);
 				$('.image_container .image2 a').attr('href','/game/'+data[2]+'/wins/'+data[0]);
@@ -44,8 +56,14 @@
 		load_images();
 		
 		$('.image_container a').click(function(){
+			$('.image_container a').children('img').css("border-bottom","8px solid #fff");
+			$(this).children('img').css("border-bottom","8px solid #e74d19");
+			
 			var post_url = $(this).attr('href');
-			$.getJSON(post_url, function(data){load_images();});
+			$.post(post_url, function(data){
+				$('.image_container a').children('img').css("border-bottom","8px solid #fff");
+				load_images();	
+			});
 			return false;
 		});
 		

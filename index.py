@@ -57,7 +57,7 @@ def show(sex):
 	else:
 		bottle.redirect('/')
 		
-@route('/game/:a/wins/:b',method='GET')
+@route('/game/:a/wins/:b',method='POST')
 def match(a,b):
 	global MAX_INCREASE
 	'''
@@ -106,6 +106,7 @@ def report():
 @route('/contact')
 def contact():
 	bottle.redirect('https://docs.google.com/forms/d/1lub_oz5sTr7iOXF6TG6TEj-g4Y2cGEB_iFFYlYGI5T0/viewform')
+	
 	
 	
 bottle.debug(True)

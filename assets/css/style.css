@@ -107,6 +107,10 @@ a,a:visited,a:active {
 	color:#114cf1;
 }
 
+.leader_board .twocol{
+	border-bottom:1px solid #ddd;
+	margin-bottom:10px;
+}
 /* ============================= */
 /* ! Layout for mobile version   */
 /* ============================= */
