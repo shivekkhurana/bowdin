@@ -97,14 +97,14 @@
 
 <div class="container">
 	<div class="row">
-		<div class="twelvecol">
+		<div class="sixcol">
 			<h4>Rules</h4>Click on the image to bowd it.
-			<p class="controls">
+		</div>
+		<div class="sixcol last controls">
 				<strong>Shortcuts</strong>
 				&#8594; Right Image / 
 				&#8592; Left Image /
 				&#8595; Skip 
-			</p>
 		</div>
 	</div>
 </div>
