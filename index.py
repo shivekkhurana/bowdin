@@ -122,13 +122,14 @@ def contact():
 
 @route('/del/:src')
 def d(src):
-	cur.execute("DELETE FROM main WHERE fbid='%s'"%src)
-	connection.commit() 
-	db_refresh()
+	#cur.execute("DELETE FROM main WHERE fbid='%s'"%src)
+	#connection.commit() 
+	#db_refresh()
+	pass
 	
 @route('/monitor')
 def monitor():
-	cur.execute("SELECT fbid,url FROM main Where fbid>400000")
+	cur.execute("SELECT fbid,url FROM main Where fbid>400000 AND sex='male'")
 	a = cur.fetchall()
 	db_refresh()
 	b = ""
