@@ -47,12 +47,16 @@ def game(sex):
 @route('/send/:sex')
 def show(sex):
 	if(sex == 'female' or sex == 'male'):
-		cur.execute("SELECT fbid,wins,matches,url FROM main WHERE sex = '%s' ORDER BY matches, RAND()"%sex)
+		cur.execute("SELECT fbid,wins,matches,url FROM main WHERE sex = '%s' ORDER BY matches, RAND() LIMIT 1000"%sex)
 		r = cur.fetchall()
 		d = []
+		t = []
 		for i in r:
-			d.append(int(i[0]))
-			d.append(int(i[1]))
+			t.append(int(i[0]))
+			t.append(int(i[1])*100/(int(i[2]) + 0.0000001))
+			t.append(i[3])
+			d.append(t)
+			t=[]
 		return simplejson.dumps(d)
 	else:
 		bottle.redirect('/')
