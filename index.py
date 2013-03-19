@@ -15,7 +15,7 @@ cur = connection.cursor()
 
 def db_refresh():
 	global connection
-	connection.close()
+	#connection.close()
 	
 #globals
 base = "http://bowd.in"
@@ -52,7 +52,7 @@ def game(sex):
 @route('/send/:sex')
 def show(sex):
 	if(sex == 'female' or sex == 'male'):
-		cur.execute("SELECT fbid,wins,matches,url FROM main WHERE sex = '%s' ORDER BY matches, RAND() LIMIT 1000"%sex)
+		cur.execute("SELECT fbid,wins,matches,url FROM main WHERE sex = '%s' ORDER BY matches, RAND() LIMIT 300"%sex)
 		r = cur.fetchall()
 		db_refresh()
 		d = []
@@ -136,7 +136,5 @@ def monitor():
 		b = b+ "<a href=/del/"+str(i[0])+"><img src='"+i[1]+"'></a>"
 	return b
 	
-
-#bottle.debug(True)
-#bottle.run(reloader = True)
-
+bottle.debug(True)
+bottle.run(reloader = True)

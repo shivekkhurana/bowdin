@@ -33,7 +33,6 @@
 		<div class="twelvecol">
 			<!--img src="assets/images/specs.jpg"-->
 			<h1>bowd.in</h1>
-			<hr class="bottom"/>
 			Everyone is 	&#9733; FAMOUS 	&#9733;
 		</div>
 	</div>
@@ -67,6 +66,7 @@
 			<h4>About</h4>
 			bowd.in brings good looking pictures of amazing people on front page of the internet. Then you :) choose the ones you like and we put them on the leader board.
 It can be used to convert boring moments into happening ones.
+
 		</div>
 	</div>
 </div>
