@@ -13,6 +13,10 @@ from bottle import route
 connection = pymysql.connect(host='localhost', port=3306, user='root', passwd='', db='fb')
 cur = connection.cursor()
 
+def db_refresh():
+	global connection
+	connection.close()
+	
 #globals
 base = "http://bowd.in"
 MAX_INCREASE = 32
@@ -29,6 +33,7 @@ def static2(sub,filename):
 def index():
 	cur.execute("SELECT fbid,name FROM main ORDER BY wins DESC LIMIT 24")
 	data = cur.fetchall();
+	db_refresh()
 	k = []
 	for d in data:
 		k.append(tuple(["http://graph.facebook.com/"+str(int(d[0]))+"/picture?type=large", str(d[1])]))
@@ -49,6 +54,7 @@ def show(sex):
 	if(sex == 'female' or sex == 'male'):
 		cur.execute("SELECT fbid,wins,matches,url FROM main WHERE sex = '%s' ORDER BY matches, RAND() LIMIT 1000"%sex)
 		r = cur.fetchall()
+		db_refresh()
 		d = []
 		t = []
 		for i in r:
@@ -72,6 +78,7 @@ def match(a,b):
 
 	cur.execute("SELECT * FROM main WHERE fbid = %s"%b)
 	ib = list(cur.fetchone())
+	db_refresh()
 
 	#i* is something of form (1L, 4L, 'male', 1500L, 0L, 0L)
 
@@ -92,13 +99,14 @@ def match(a,b):
 	cur.execute("UPDATE main SET score=%s, wins=%s, matches=%s WHERE fbid=%s"%(ia[3], ia[4], ia[5], a))
 	cur.execute("UPDATE main SET score=%s, wins=%s, matches=%s WHERE fbid=%s"%(ib[3], ib[4], ib[5], b))
 	connection.commit()
+	db_refresh()
 	
 	return simplejson.dumps(True)
 
-@route('/leaders')
-def leaders():
-	cur.execute("SELECT * FROM main ORDER BY wins DESC LIMIT 10")
-	return str(cur.fetchall())
+#@route('/leaders')
+#def leaders():
+#	cur.execute("SELECT * FROM main ORDER BY wins DESC LIMIT 10")
+#	return str(cur.fetchall())
 
 @route('/faq')
 def faq():
@@ -112,8 +120,23 @@ def report():
 def contact():
 	bottle.redirect('https://docs.google.com/forms/d/1lub_oz5sTr7iOXF6TG6TEj-g4Y2cGEB_iFFYlYGI5T0/viewform')
 
+@route('/del/:src')
+def d(src):
+	cur.execute("DELETE FROM main WHERE fbid='%s'"%src)
+	connection.commit() 
+	db_refresh()
+	
+@route('/monitor')
+def monitor():
+	cur.execute("SELECT fbid,url FROM main Where fbid>400000")
+	a = cur.fetchall()
+	db_refresh()
+	b = ""
+	for i in a:
+		b = b+ "<a href=/del/"+str(i[0])+"><img src='"+i[1]+"'></a>"
+	return b
+	
 
-
-bottle.debug(True)
-bottle.run(reloader = True)
+#bottle.debug(True)
+#bottle.run(reloader = True)
 
