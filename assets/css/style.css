@@ -1,6 +1,7 @@
 /* ============================== */
 /* ! Layout for desktop version   */
 /* ============================== */
+
 body {
 	@import url(http://fonts.googleapis.com/css?family=Vollkorn:700);
   font: 16px/26px 'Vollkorn', serif;
@@ -84,6 +85,10 @@ padding:0;
 	margin-top:30px;
 }
 
+.image_container img{
+	max-width:200px;
+}
+
 .image_container .image1{
 	text-align:right;
 }
@@ -118,13 +123,13 @@ a,a:visited,a:active {
 @media handheld, only screen and (max-width: 767px) {
 
 	body {
-		
+
 	}
-	
+
 	.controls{
 		display:none;
 	}
-	
+
 	.masthead h1{
   font-size: 70px;
   line-height: 10px;
@@ -132,7 +137,7 @@ a,a:visited,a:active {
   margin-top: 30px;
   font-weight: 100;
 	}
-	
+
 	.call_to_action div{
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
@@ -142,6 +147,11 @@ a,a:visited,a:active {
 	.image_container .image1{
 	text-align:left;
 	}
+
+    .image_container .sixcol{
+		width:35%;
+		float:left;
+	}
 }
 
 
@@ -149,7 +159,7 @@ a,a:visited,a:active {
 /* ! Provide higher res assets for iPhone 4   */
 /* ========================================== */
 
-@media only screen and (-webkit-min-device-pixel-ratio: 2) { 
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
 
 /*	.logo {
 		background: url(logo2x.jpg) no-repeat;
@@ -157,3 +167,4 @@ a,a:visited,a:active {
 	}*/
 
 }
+
