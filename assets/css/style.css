@@ -1,20 +1,25 @@
 /* ============================== */
 /* ! Layout for desktop version   */
 /* ============================== */
-@import url(http://fonts.googleapis.com/css?family=Ruluko);
-@import url(http://fonts.googleapis.com/css?family=Vollkorn:700);
-@import url(http://fonts.googleapis.com/css?family=Julius+Sans+One);
+@font-face {
+  font-family: 'BonevoCF';
+  src: url('/assets/fonts/BonevoCF.ttf');
+}
+
 body {
-	font:16px/24px 'Julius Sans One', sans-serif;
-  line-height: 2;
+  font:16px/24px Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+line-height: 2;
   padding: 0;
   margin: 0;
   color: #222;
+  overflow-y:scroll;
 }
 
 .masthead,.gamehead{
+  font-family:BonevoCF;
   text-align: center;
   padding:70px 0;
+  text-transform:uppercase;
   margin-bottom:20px;
   background:url('/assets/images/dark_wall.png');
   color:#fff;
@@ -31,7 +36,7 @@ body {
 }
 
 .masthead h1{
-  font-size: 200px;
+  font-size: 180px;
   line-height: 200px;
   margin-top: 0px;
   font-weight: 100;
@@ -48,6 +53,8 @@ body {
 }
 
 .call_to_action div{
+    font-family:BonevoCF;
+    text-transform:uppercase;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -88,6 +95,8 @@ padding:0;
 
 .image_container img{
 	max-width:300px;
+    border-bottom:8px solid #fff;
+    position:relative;
 }
 
 .image_container .image1{
@@ -116,6 +125,10 @@ a,a:visited,a:active {
 .leader_board .twocol{
 	border-bottom:1px solid #ddd;
 	margin-bottom:10px;
+}
+.like_button{
+	margin:6px 0;
+	float:right;
 }
 /* ============================= */
 /* ! Layout for mobile version   */
@@ -153,9 +166,9 @@ a,a:visited,a:active {
 		width:35%;
 		float:left;
 	}
-	
+
 	.image_container img{
-		max-width:200px;
+		max-width:90%;
 	}
 
 }
@@ -173,4 +186,5 @@ a,a:visited,a:active {
 	}*/
 
 }
+
 

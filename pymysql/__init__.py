@@ -1,70 +1,50 @@
-'''
-PyMySQL: A pure-Python drop-in replacement for MySQLdb.
+"""MySQLdb - A DB API v2.0 compatible interface to MySQL.
 
-Copyright (c) 2010 PyMySQL contributors
+This package is a wrapper around _mysql, which mostly implements the
+MySQL C API.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+connect() -- connects to server
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+See the C API specification and the MySQL documentation for more info
+on other items.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+For information on how MySQLdb handles type conversion, see the
+MySQLdb.converters module.
 
-'''
+"""
 
-VERSION = (0, 5, None)
+__revision__ = """$Revision$"""[11:-2]
+from MySQLdb.release import __version__, version_info, __author__
 
-from constants import FIELD_TYPE
-from converters import escape_dict, escape_sequence, escape_string
-from err import Warning, Error, InterfaceError, DataError, \
-     DatabaseError, OperationalError, IntegrityError, InternalError, \
-     NotSupportedError, ProgrammingError, MySQLError
-from times import Date, Time, Timestamp, \
-    DateFromTicks, TimeFromTicks, TimestampFromTicks
+import _mysql
 
-import sys
-
-try:
-    frozenset
-except NameError:
-    from sets import ImmutableSet as frozenset
-    try:
-        from sets import BaseSet as set
-    except ImportError:
-        from sets import Set as set
+if version_info != _mysql.version_info:
+    raise ImportError("this is MySQLdb version %s, but _mysql is version %r" %
+                      (version_info, _mysql.version_info))
 
 threadsafety = 1
 apilevel = "2.0"
 paramstyle = "format"
 
+from _mysql import *
+from MySQLdb.constants import FIELD_TYPE
+from MySQLdb.times import Date, Time, Timestamp, \
+    DateFromTicks, TimeFromTicks, TimestampFromTicks
+
+try:
+    frozenset
+except NameError:
+    from sets import ImmutableSet as frozenset
+
 class DBAPISet(frozenset):
 
-
-    def __ne__(self, other):
-        if isinstance(other, set):
-            return super(DBAPISet, self).__ne__(self, other)
-        else:
-            return other not in self
+    """A special type of set for which A == x is true if A is a
+    DBAPISet and x is a member of that set."""
 
     def __eq__(self, other):
-        if isinstance(other, frozenset):
-            return frozenset.__eq__(self, other)
-        else:
-            return other in self
-
-    def __hash__(self):
-        return frozenset.__hash__(self)
+        if isinstance(other, DBAPISet):
+            return not self.difference(other)
+        return other in self
 
 
 STRING    = DBAPISet([FIELD_TYPE.ENUM, FIELD_TYPE.STRING,
@@ -80,57 +60,39 @@ TIMESTAMP = DBAPISet([FIELD_TYPE.TIMESTAMP, FIELD_TYPE.DATETIME])
 DATETIME  = TIMESTAMP
 ROWID     = DBAPISet()
 
+def test_DBAPISet_set_equality():
+    assert STRING == STRING
+
+def test_DBAPISet_set_inequality():
+    assert STRING != NUMBER
+
+def test_DBAPISet_set_equality_membership():
+    assert FIELD_TYPE.VAR_STRING == STRING
+
+def test_DBAPISet_set_inequality_membership():
+    assert FIELD_TYPE.DATE != STRING
+
 def Binary(x):
-    """Return x as a binary type."""
     return str(x)
 
 def Connect(*args, **kwargs):
-    """
-    Connect to the database; see connections.Connection.__init__() for
-    more information.
-    """
-    from connections import Connection
+    """Factory function for connections.Connection."""
+    from MySQLdb.connections import Connection
     return Connection(*args, **kwargs)
-    
-from pymysql import connections as _orig_conn
-Connect.__doc__ = _orig_conn.Connection.__init__.__doc__ + """\nSee connections.Connection.__init__() for
-    information about defaults."""
-del _orig_conn
-
-def get_client_info():  # for MySQLdb compatibility
-  return '%s.%s.%s' % VERSION
 
 connect = Connection = Connect
 
-# we include a doctored version_info here for MySQLdb compatibility
-version_info = (1,2,2,"final",0)
+__all__ = [ 'BINARY', 'Binary', 'Connect', 'Connection', 'DATE',
+    'Date', 'Time', 'Timestamp', 'DateFromTicks', 'TimeFromTicks',
+    'TimestampFromTicks', 'DataError', 'DatabaseError', 'Error',
+    'FIELD_TYPE', 'IntegrityError', 'InterfaceError', 'InternalError',
+    'MySQLError', 'NULL', 'NUMBER', 'NotSupportedError', 'DBAPISet',
+    'OperationalError', 'ProgrammingError', 'ROWID', 'STRING', 'TIME',
+    'TIMESTAMP', 'Warning', 'apilevel', 'connect', 'connections',
+    'constants', 'converters', 'cursors', 'debug', 'escape', 'escape_dict',
+    'escape_sequence', 'escape_string', 'get_client_info',
+    'paramstyle', 'string_literal', 'threadsafety', 'version_info']
 
-NULL = "NULL"
 
-__version__ = get_client_info()
 
-def thread_safe():
-    return True # match MySQLdb.thread_safe()
 
-def install_as_MySQLdb():
-    """
-    After this function is called, any application that imports MySQLdb or
-    _mysql will unwittingly actually use 
-    """
-    sys.modules["MySQLdb"] = sys.modules["_mysql"] = sys.modules["pymysql"]
-
-__all__ = [
-    'BINARY', 'Binary', 'Connect', 'Connection', 'DATE', 'Date',
-    'Time', 'Timestamp', 'DateFromTicks', 'TimeFromTicks', 'TimestampFromTicks',
-    'DataError', 'DatabaseError', 'Error', 'FIELD_TYPE', 'IntegrityError',
-    'InterfaceError', 'InternalError', 'MySQLError', 'NULL', 'NUMBER',
-    'NotSupportedError', 'DBAPISet', 'OperationalError', 'ProgrammingError',
-    'ROWID', 'STRING', 'TIME', 'TIMESTAMP', 'Warning', 'apilevel', 'connect',
-    'connections', 'constants', 'converters', 'cursors',
-    'escape_dict', 'escape_sequence', 'escape_string', 'get_client_info',
-    'paramstyle', 'threadsafety', 'version_info',
-
-    "install_as_MySQLdb",
-
-    "NULL","__version__",
-    ]

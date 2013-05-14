@@ -38,7 +38,8 @@
 <div class="container">
 	<div class="row">
 		<div class="sixcol">
-			<h4>Rules</h4>Click on the image to bowd it or <a href="#" class="skip_set">Skip this set</a>
+			<h4>Rules</h4>Click on an image to bowd it or <a href="#" class="skip_set">Skip this set</a>
+            <p>The game is about choosing one of the two which attracts you the most</p>
 		</div>
 		<div class="sixcol last controls">
 				<h4>Shortcuts</h4>

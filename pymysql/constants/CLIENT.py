@@ -1,20 +1,29 @@
+"""MySQL CLIENT constants
+
+These constants are used when creating the connection. Use bitwise-OR
+(|) to combine options together, and pass them as the client_flags
+parameter to MySQLdb.Connection. For more information on these flags,
+see the MySQL C API documentation for mysql_real_connect().
+
+"""
 
 LONG_PASSWORD = 1
-FOUND_ROWS = 1 << 1
-LONG_FLAG = 1 << 2
-CONNECT_WITH_DB = 1 << 3
-NO_SCHEMA = 1 << 4
-COMPRESS = 1 << 5
-ODBC = 1 << 6
-LOCAL_FILES = 1 << 7
-IGNORE_SPACE = 1 << 8
-PROTOCOL_41 = 1 << 9
-INTERACTIVE = 1 << 10
-SSL = 1 << 11
-IGNORE_SIGPIPE = 1 << 12
-TRANSACTIONS  = 1 << 13
-SECURE_CONNECTION = 1 << 15
-MULTI_STATEMENTS = 1 << 16
-MULTI_RESULTS = 1 << 17
-CAPABILITIES = LONG_PASSWORD|LONG_FLAG|TRANSACTIONS| \
-    PROTOCOL_41|SECURE_CONNECTION
+FOUND_ROWS = 2
+LONG_FLAG = 4
+CONNECT_WITH_DB = 8
+NO_SCHEMA = 16
+COMPRESS = 32
+ODBC = 64
+LOCAL_FILES = 128
+IGNORE_SPACE = 256
+CHANGE_USER = 512
+INTERACTIVE = 1024
+SSL = 2048
+IGNORE_SIGPIPE = 4096
+TRANSACTIONS = 8192 # mysql_com.h was WRONG prior to 3.23.35
+RESERVED = 16384
+SECURE_CONNECTION = 32768
+MULTI_STATEMENTS = 65536
+MULTI_RESULTS = 131072
+
+
